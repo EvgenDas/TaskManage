@@ -1,0 +1,19 @@
+<div th:fragment="downHeader">
+
+<input type="checkbox" id="nav-toggle" hidden>
+<nav class="nav">
+
+  <label for="nav-toggle" class="nav-toggle" onclick=""></label>
+  <h2 class="logo">
+    <a href="/"><img src="https://www.svgrepo.com/show/231498/list-tasks.svg" alt=""></a>
+  </h2>
+  <ul>
+    <li><a href="/AllTask/OpenTask">Открытые задачи</a>
+  </li><li><a href="/AllTask/PerformedTask">Выполняются</a>
+  </li><li><a href="/AllTask/CanceledTask">Отменённые</a>
+  </li><li><a href="/AllTask/CompleteTask">Завершённые</a>
+  </li><li><a href="/AllTask">Все задачи</a>
+  </li>
+  </ul>
+</nav>
+</div>

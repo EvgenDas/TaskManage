@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Выполняются</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container-fluid">
+<header th:insert="blocks/downHeader :: downHeader" class="downHeader"></header>
+<header th:insert="blocks/header :: header" class="header"></header>
+
+
+<div class="wrap">
+    <div th:each="el:${tasks}" class="informBlock">
+        <i class="bi bi-calendar-check"></i>
+        <h5 th:text="${el.title}" style="display: inline;" class="mainText"></h5>
+        <div class="underlineBlock"></div>
+        <p class="secondText">Имя выполнителя:</p>
+        <h6 th:text="${el.name}" style="display: inline;" class="mainText"></h6>
+        <p class="secondText">Приоритет задачи:</p>
+        <h6 th:text="${el.priority}" style="display: inline;" class="mainText"></h6>
+        <p class="secondText">Запланированная дата:</p>
+        <h6 th:text="${el.estimate_date}" style="display: inline;" class="mainText"></h6>
+        <a th:href="'/AllTask/' + ${el.id}" class="btn_">Детальнее</a>
+        <p></p>
+        <div style="display: inline;" class="a">
+            <form th:action="'/AllTask/' + ${el.id} + '/canceled'" data-toggle="tooltip" data-placement="top"
+                  title="Отменить задачу" method="post" style="display: inline;">
+                <button class="btn btn-outline-light btn-canceled" type="submit"></button>
+            </form>
+            <form th:action="'/AllTask/' + ${el.id} + '/complete'" data-toggle="tooltip" data-placement="top"
+                  title="Завершить задачу" method="post" style="display: inline;">
+                <button class="btn btn-outline-light btn-complete" type="submit"></button>
+            </form>
+        </div>
+
+    </div>
+
+
+</div>
+<footer th:insert="blocks/footer :: footer" class="footer"></footer>
+</body>
+</html>
+<style>
+
+a. {
+width: 50%;
+  margin: 0 auto;
+  }
+.btn-complete {
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+   font-size: 16px;
+   background-image: url(https://www.svgrepo.com/show/376272/task-done.svg);
+   background-color: transparent;
+   background-size: 100% 100%;
+   cursor: pointer;
+}
+
+.btn-canceled {
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+   font-size: 16px;
+   background-image: url(https://www.svgrepo.com/show/104330/cancel.svg);
+   background-color: transparent;
+   background-size: 100% 100%;
+   cursor: pointer;
+   vertical-align: middle;
+}
+
+.wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-width: 300px;
+  min-height: 300px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  grid-gap: 50px;
+  justify-content: center;
+  padding-top: 10rem;
+}
+
+.informBlock {
+	width: 80%;
+	height: 420px;
+	background: #D9D0EB;
+	padding: 30px;
+	box-sizing: border-box;
+	transition: .4s;
+	align-items: center;
+	border-radius: 20px;
+	position:relative;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.informBlock i {
+	color: #9977E2;
+	display: flex;
+	transition: .4s;
+}
+
+.mainText {
+	color: #000;
+	margin: 55px 0 0 0;
+	font-size: 20px;
+}
+
+.underlineBlock {
+	height: 0;
+	width: 200px;
+	border-top: 2px solid #9977E2;
+	margin-top: 15x;
+	margin:auto;
+	transition: .4s;
+
+}
+
+.secondText {
+	color: #fff;
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+.informBlock:hover {
+	background: #9977E2;
+}
+
+.informBlock:hover i {
+	color: #fff;
+}
+
+.informBlock:hover .underlineBlock {
+	border-color: #fff;
+
+}
+a{color: #0000000;}
+
+.btn_ {
+  border: none;
+  outline: none;
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 100px;
+  border-top: 1px solid #000000;
+  background: #9977E2;
+  display: block;
+  position: absolute;
+  bottom:10px; left:150px;
+}
+
+.btn_:hover {
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+  background: #D9D0EB;
+  color: #000000;
+}
+
+    .header{
+background: linear-gradient(45deg, #D9D0EB, #9977E2);
+border-radius: 10px;
+margin-left:-10px;
+margin-right:-10px;
+}
+
+.nav {
+  opacity: 0.9;
+    width: 320px;
+    min-width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 58px;
+    bottom: 0;
+    margin: 0;
+    left: -320px;
+    padding: 15px 20px;
+    -webkit-transition: left 0.3s;
+    -moz-transition: left 0.3s;
+    transition: left 0.3s;
+    background: linear-gradient(45deg, #9977E2, #D9D0EB);
+    /* поверх других элементов */
+    z-index: 9999;
+    border-radius: 10px;
+}
+
+.nav-toggle {
+    position: absolute;
+    /* относительно левого края панели */
+    left: 320px;
+    /* отступ от верхнего края панели */
+    top: 0;
+    /* внутренние отступы */
+    padding: 0.5em;
+    background: inherit;
+    /* цвет текста */
+    color: #dadada;
+    /* вид курсора */
+    cursor: pointer;
+    /* размер шрифта */
+    font-size: 1.2em;
+    line-height: 1;
+    z-index: 2001;
+    -webkit-transition: color .25s ease-in-out;
+    -moz-transition: color .25s ease-in-out;
+    transition: color .25s ease-in-out;
+    margin-left:2px;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #9977E2, #D9D0EB);
+}
+
+.nav-toggle:after {
+    content: '\2630';
+    text-decoration: none;
+}
+
+.nav-toggle:hover {
+    color: #000000;
+}
+
+[id='nav-toggle'] {
+    position: absolute;
+    display: none;
+}
+
+[id='nav-toggle']:checked ~ .nav > .nav-toggle {
+    left: auto;
+    right: 2px;
+    top: 1em;
+}
+
+[id='nav-toggle']:checked ~ .nav {
+    left: 0;
+    overflow-y: auto;
+}
+
+[id='nav-toggle']:checked ~ .nav > .nav-toggle:after {
+    content: '\2715';
+}
+
+
+@media screen and (min-width: 320px) {
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    html,
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .nav {
+      width: 100%;
+      box-shadow: none
+    }
+}
+
+.nav h2 {
+    width: 90%;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+    text-shadow: rgba(255, 255, 255, .1) -1px -1px 1px, rgba(0, 0, 0, .5) 1px 1px 1px;
+    font-size: 1.3em;
+    line-height: 1.3em;
+    opacity: 0;
+    transform: scale(0.1, 0.1);
+    -ms-transform: scale(0.1, 0.1);
+    -moz-transform: scale(0.1, 0.1);
+    -webkit-transform: scale(0.1, 0.1);
+    transform-origin: 0% 0%;
+    -ms-transform-origin: 0% 0%;
+    -moz-transform-origin: 0% 0%;
+    -webkit-transform-origin: 0% 0%;
+    transition: opacity 0.8s, transform 0.8s;
+    -ms-transition: opacity 0.8s, -ms-transform 0.8s;
+    -moz-transition: opacity 0.8s, -moz-transform 0.8s;
+    -webkit-transition: opacity 0.8s, -webkit-transform 0.8s;
+}
+
+.nav h2 a {
+    color: #dadada;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+[id='nav-toggle']:checked ~ .nav h2 {
+    opacity: 1;
+    transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+}
+
+.nav > ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav > ul > li {
+    line-height: 2.5;
+    opacity: 0;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: opacity .5s .1s, -webkit-transform .5s .1s;
+    -moz-transition: opacity .5s .1s, -moz-transform .5s .1s;
+    -ms-transition: opacity .5s .1s, -ms-transform .5s .1s;
+    transition: opacity .5s .1s, transform .5s .1s;
+}
+
+[id='nav-toggle']:checked ~ .nav > ul > li {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.nav > ul > li:nth-child(2) {
+    -webkit-transition: opacity .5s .2s, -webkit-transform .5s .2s;
+    transition: opacity .5s .2s, transform .5s .2s;
+}
+
+.nav > ul > li:nth-child(3) {
+    -webkit-transition: opacity .5s .3s, -webkit-transform .5s .3s;
+    transition: opacity .5s .3s, transform .5s .3s;
+}
+
+.nav > ul > li:nth-child(4) {
+    -webkit-transition: opacity .5s .4s, -webkit-transform .5s .4s;
+    transition: opacity .5s .4s, transform .5s .4s;
+}
+
+.nav > ul > li:nth-child(5) {
+    -webkit-transition: opacity .5s .5s, -webkit-transform .5s .5s;
+    transition: opacity .5s .5s, transform .5s .5s;
+}
+
+.nav > ul > li:nth-child(6) {
+    -webkit-transition: opacity .5s .6s, -webkit-transform .5s .6s;
+    transition: opacity .5s .6s, transform .5s .6s;
+}
+
+.nav > ul > li:nth-child(7) {
+    -webkit-transition: opacity .5s .7s, -webkit-transform .5s .7s;
+    transition: opacity .5s .7s, transform .5s .7s;
+}
+
+.nav > ul > li > a {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.2em;
+    color: #dadada;
+    width: 100%;
+    text-decoration: none;
+    /* плавный переход */
+    -webkit-transition: color .5s ease, padding .5s ease;
+    -moz-transition: color .5s ease, padding .5s ease;
+    transition: color .5s ease, padding .5s ease;
+}
+
+.nav > ul > li > a:hover,
+.nav > ul > li > a:focus {
+    color: #000000;
+    padding-left: 15px;
+}
+
+.nav > ul > li > a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    -webkit-transition: width 0s ease;
+    transition: width 0s ease;
+}
+
+.nav > ul > li > a:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: #61ABEF;
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+
+.nav > ul > li > a:hover:before {
+    width: 0%;
+    background: #000000;
+    -webkit-transition: width .5s ease;
+    transition: width .5s ease;
+}
+
+.nav > ul > li > a:hover:after {
+    width: 0%;
+    background: transparent;
+    -webkit-transition: width 0s ease;
+    transition: width 0s ease;
+}
+
+</style>
